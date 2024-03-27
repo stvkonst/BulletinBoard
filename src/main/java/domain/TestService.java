@@ -9,9 +9,9 @@ import java.time.LocalDate;
 
 public class TestService {
     public static void main(String[] args) {
-        AuthorServiceImpl authorService = new AuthorServiceImpl();
-        RubricServiceImpl rubricService = new RubricServiceImpl();
-        AdServiceImpl adService = new AdServiceImpl();
+//        AuthorServiceImpl authorService = new AuthorServiceImpl();
+//        RubricServiceImpl rubricService = new RubricServiceImpl();
+//        AdServiceImpl adService = new AdServiceImpl();
 
 //        authorService.insertAuthor("0501112233", "1 maja, 33", "mm@gmail.com", "John Born");
 //        rubricService.insertRubric("Auto");

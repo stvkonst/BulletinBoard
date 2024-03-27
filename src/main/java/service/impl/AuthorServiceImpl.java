@@ -3,16 +3,14 @@ package service.impl;
 import dao.CrudDAO;
 import dao.impl.AuthorDAOImpl;
 import domain.Author;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import service.CrudService;
 
 @Repository
+@AllArgsConstructor
 public class AuthorServiceImpl implements CrudService<Author> {
     CrudDAO<Author> authorDAO;
-
-    public AuthorServiceImpl() {
-        this.authorDAO = new AuthorDAOImpl();
-    }
 
     @Override
     public void insert(Author author) {

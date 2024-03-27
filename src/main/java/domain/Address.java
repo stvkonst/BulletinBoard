@@ -11,7 +11,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = "author")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Address {
     @Id

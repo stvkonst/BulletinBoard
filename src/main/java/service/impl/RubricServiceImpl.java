@@ -1,18 +1,17 @@
 package service.impl;
 
 
+import dao.CrudDAO;
 import dao.impl.RubricDAOImpl;
 import domain.Rubric;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import service.CrudService;
 
 @Repository
+@AllArgsConstructor
 public class RubricServiceImpl implements CrudService<Rubric> {
-    RubricDAOImpl rubricDAO;
-
-    public RubricServiceImpl() {
-        this.rubricDAO = new RubricDAOImpl();
-    }
+    CrudDAO<Rubric> rubricDAO;
 
     @Override
     public void insert(Rubric rubric) {

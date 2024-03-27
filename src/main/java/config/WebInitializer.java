@@ -15,6 +15,6 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     @Override
     protected String[] getServletMappings() {
-        return new String[]{"/bulletinboard/*"};
+        return new String[]{"/bb/*"};
     }
 }

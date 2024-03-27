@@ -26,6 +26,9 @@ public class AuthorDAOImpl implements CrudDAO<Author> {
 
     @Override
     public void insert(Author author) {
+        author.getPhones().forEach(phone -> phone.setAuthor(author));
+        author.getEmail().setAuthor(author);
+        author.getAddress().setAuthor(author);
         em.persist(author);
     }
 

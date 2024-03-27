@@ -2,19 +2,16 @@ package service.impl;
 
 
 import dao.AdDAO;
-import dao.impl.AdDAOImpl;
 import domain.Ad;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import service.AdService;
 import java.util.List;
 
 @Repository
+@AllArgsConstructor
 public class AdServiceImpl implements AdService {
     AdDAO adDAO;
-
-    public AdServiceImpl() {
-        this.adDAO = new AdDAOImpl();
-    }
 
     @Override
     public void insert(Ad ad) {
