@@ -6,6 +6,8 @@ import domain.Ad;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import service.AdService;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -47,69 +49,33 @@ public class AdServiceImpl implements AdService {
     public List<Ad> showByRubricIds(List<Integer> ids) {
         return adDAO.showByRubricIds(ids);
     }
+
+    //@Scheduled(cron = "0/15 * * * * *")
+    @Override
+    public void deleteByIsActiveIsFalse() {
+        adDAO.deleteByIsActiveIsFalse();
+        System.out.println("Find to delete Ad");
+    }
+
+    @Override
+    public List<Ad> findAllByAuthorId(int id) {
+        return adDAO.findAllByAuthorId(id);
+    }
+
+    @Override
+    public List<Ad> findAllByNameContains(String name) {
+        return adDAO.findAllByNameContains(name);
+    }
+
+    @Override
+    public List<Ad> findAllByPublicationDate(LocalDate date) {
+        return adDAO.findAllByPublicationDate(date);
+    }
+
+    @Override
+    public List<Ad> findAllPage(int page, int size) {
+        return adDAO.findAllPage(page, size);
+    }
+
+
 }
-
-
-
-
-
-
-//    AnnotationConfigApplicationContext context =
-//            new AnnotationConfigApplicationContext(ConfigApp.class);
-//
-//    AuthorDAOImpl authorDAO = context.getBean(AuthorDAOImpl.class);
-//    RubricDAOImpl rubricDAO = context.getBean(RubricDAOImpl.class);
-//    AdDAOImpl adDAO = context.getBean(AdDAOImpl.class);
-//
-//    public void insertAd(int authorId, int rubricId, String name, LocalDate date, long price, String text) {
-//        Author tempAuthor = authorDAO.findById(authorId);
-//        Rubric tempRubric = rubricDAO.findById(rubricId);
-//
-//        Ad ad = Ad.builder()
-//                .name(name)
-//                .publicationDate(date)
-//                .price(price)
-//                .text(text)
-//                .author(tempAuthor)
-//                .rubric(tempRubric)
-//                .build();
-//
-//        adDAO.insert(ad);
-//    }
-//
-//    public void updateAdName(int adId, String newName) {
-//        Ad updatedAd = adDAO.findById(adId);
-//
-//        updatedAd.setName(newName);
-//
-//        adDAO.update(updatedAd);
-//    }
-//
-//    public void updateAdText(int adId, String newText) {
-//        Ad updatedAd = adDAO.findById(adId);
-//
-//        updatedAd.setText(newText);
-//
-//        adDAO.update(updatedAd);
-//    }
-//
-//    public void updateAdPrice(int adId, long price) {
-//        Ad updatedAd = adDAO.findById(adId);
-//
-//        updatedAd.setPrice(price);
-//
-//        adDAO.update(updatedAd);
-//    }
-//
-//    public void deleteAd(int adId) {
-//        adDAO.deleteById(adId);
-//    }
-//
-//    public void deleteAllByAuthorId(int authorId) {
-//        adDAO.deleteAllByAuthorId(authorId);
-//    }
-//
-//    public List<Ad> showByRubricIds(List<Integer> ids) {
-//        return adDAO.showByRubricIds(ids);
-//    }
-//}

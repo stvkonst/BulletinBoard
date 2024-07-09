@@ -1,5 +1,5 @@
 package config;
-import javax.persistence.EntityManagerFactory;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,20 +11,21 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan(basePackages = {"controller", "service", "dao"})
 @EnableTransactionManagement
-@EnableAspectJAutoProxy(proxyTargetClass = true) //!!! add when beens realise interfaces
+@EnableAspectJAutoProxy(proxyTargetClass = true) //!!! add if beens realise interfaces
 @EnableWebMvc //добавить только после того как будет подключен web
 @EnableJpaRepositories(basePackages = "repository")
 //@EnableScheduling
-public class ConfigApp {
+public class ConfigAppTest {
 
     @Bean
     public PlatformTransactionManager transactionManager(final EntityManagerFactory factory,
@@ -50,7 +51,7 @@ public class ConfigApp {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/bulletin_board?serverTimezone=Europe/Warsaw");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/bulletin_board_test?serverTimezone=Europe/Warsaw");
         dataSource.setUsername("root");
         dataSource.setPassword("12345678");
         return dataSource;

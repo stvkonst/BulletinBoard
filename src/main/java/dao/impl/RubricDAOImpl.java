@@ -4,43 +4,40 @@ import dao.AdDAO;
 import dao.CrudDAO;
 import domain.Rubric;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import repository.RubricRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 @Repository
 @Transactional
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class RubricDAOImpl implements CrudDAO<Rubric> {
-    @PersistenceContext
-    EntityManager em;
+    RubricRepository rubricRepository;
 
-    @Autowired
     AdDAO adDAO;
 
     @Override
     public void insert(Rubric rubric) {
-        em.persist(rubric);
+        rubricRepository.save(rubric);
     }
 
     @Override
     public void update(Rubric rubric) {
-        em.merge(rubric);
+        rubricRepository.save(rubric);
     }
 
     @Override
     public void deleteById(int id) {
         adDAO.deleteAllByRubricId(id);
-        Rubric rubric = em.find(Rubric.class, id);
-        em.remove(rubric);
+        rubricRepository.deleteById(id);
     }
 
     @Override
     public Rubric findById(int id) {
-        return em.find(Rubric.class, id);
+        return rubricRepository.findById(id).get();
     }
 }

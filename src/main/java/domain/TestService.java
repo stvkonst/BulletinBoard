@@ -1,17 +1,28 @@
 package domain;
 
 
-import service.impl.AdServiceImpl;
-import service.impl.AuthorServiceImpl;
-import service.impl.RubricServiceImpl;
-import java.time.LocalDate;
+import config.ConfigApp;
+import dao.impl.AdDAOImpl;
+import dao.impl.AuthorDAOImpl;
+import dao.impl.RubricDAOImpl;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import javax.servlet.ServletContext;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class TestService {
     public static void main(String[] args) {
-//        AuthorServiceImpl authorService = new AuthorServiceImpl();
-//        RubricServiceImpl rubricService = new RubricServiceImpl();
-//        AdServiceImpl adService = new AdServiceImpl();
+        AnnotationConfigApplicationContext context =
+            new AnnotationConfigApplicationContext(ConfigApp.class);
+
+    AuthorDAOImpl authorDAO = context.getBean(AuthorDAOImpl.class);
+    RubricDAOImpl rubricDAO = context.getBean(RubricDAOImpl.class);
+    AdDAOImpl adDAO = context.getBean(AdDAOImpl.class);
+
+
+//    List<Integer> ids = List.of(1, 2);
+//    adDAO.showByRubricIds(ids).forEach(System.out::println);
 
 //        authorService.insertAuthor("0501112233", "1 maja, 33", "mm@gmail.com", "John Born");
 //        rubricService.insertRubric("Auto");

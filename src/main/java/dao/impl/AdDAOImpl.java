@@ -1,66 +1,90 @@
 package dao.impl;
 
 import dao.AdDAO;
+import dao.SubscriptionDAO;
 import domain.Ad;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import repository.AdRepository;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 @Transactional
+@AllArgsConstructor
 public class AdDAOImpl implements AdDAO {
+    AdRepository adRepository;
 
-    @PersistenceContext
-    EntityManager em;
+    SubscriptionDAO subscriptionDAO;
 
     @Override
     public void insert(Ad ad) {//id = 0
-        em.persist(ad);
+        adRepository.save(ad);
+        List<String> emails = subscriptionDAO.getEmails(ad);
+        //code that will send emails
     }
 
     @Override
     public void update(Ad ad) {//id != 0
-        em.merge(ad);
+        adRepository.save(ad);
     }
 
     @Override
     public void deleteById(int id) {
-        Query query = em.createQuery("DELETE FROM Ad a WHERE a.id =: a_id");
-        query.setParameter("a_id", id);
-        query.executeUpdate();
+        adRepository.deleteById(id);
     }
+
 
     @Override
     public Ad findById(int id) {
-        return em.find(Ad.class, id);
+        return adRepository.findById(id);
     }
 
     @Override
     public void deleteAllByAuthorId(int id) {
-        Query query = em.createQuery("DELETE FROM Ad a WHERE a.author.id =: a_id");
-        query.setParameter("a_id", id);
-
-        query.executeUpdate();
+        adRepository.deleteAllByAuthorId(id);
     }
 
     @Override
     public void deleteAllByRubricId(int id) {
-        Query query = em.createQuery("DELETE FROM Ad a WHERE a.rubric.id =: r_id");
-        query.setParameter("r_id", id);
-
-        query.executeUpdate();
+        adRepository.deleteAllByRubricId(id);
     }
 
     @Override
     public List<Ad> showByRubricIds(List<Integer> ids) {
-        TypedQuery<Ad> query =
-                em.createQuery("FROM Ad a WHERE a.rubric.id IN :ids", Ad.class);
-        query.setParameter("ids", ids);
+        return adRepository.findAllByRubricIdIn(ids);
+    }
 
-        return query.getResultList();
+    @Override
+    public void deleteByIsActiveIsFalse() {
+        adRepository.deleteByActiveIsFalse();
+    }
+
+    @Override
+    public List<Ad> findAllByAuthorId(int id) {
+        return adRepository.findAllByAuthorId(id);
+    }
+
+    @Override
+    public List<Ad> findAllByNameContains(String name) {
+        return adRepository.findAllByNameContains(name);
+    }
+
+    @Override
+    public List<Ad> findAllByPublicationDate(LocalDate date) {
+        return adRepository.findAllByPublicationDate(date);
+    }
+
+    @Override
+    public List<Ad> findAllPage(int page, int size) {
+        PageRequest request = PageRequest.of(page, size);
+
+        Page<Ad> page1 = adRepository.findAll(request);
+
+        return page1.getContent();
     }
 }
