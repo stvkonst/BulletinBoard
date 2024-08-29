@@ -37,7 +37,7 @@ public class SubscriptionDAOImpl implements SubscriptionDAO {
 
     @Override
     public Subscription findById(int id) {
-        return subscrRep.findById(id).get();
+        return subscrRep.findById(id);
     }
 
     @Override

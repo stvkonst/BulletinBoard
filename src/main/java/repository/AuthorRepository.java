@@ -8,12 +8,4 @@ import org.springframework.data.repository.query.Param;
 
 public interface AuthorRepository extends JpaRepository<Author, Integer> {
     Author findById(int id);
-
-
-//    @Query(value = "FROM Author a JOIN FETCH a.phones WHERE a.id = :a_id")
-//    Author findById(@Param(value = "a_id") int id);
-
-
-
-
 }

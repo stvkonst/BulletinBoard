@@ -38,6 +38,6 @@ public class RubricDAOImpl implements CrudDAO<Rubric> {
 
     @Override
     public Rubric findById(int id) {
-        return rubricRepository.findById(id).get();
+        return rubricRepository.findById(id);
     }
 }

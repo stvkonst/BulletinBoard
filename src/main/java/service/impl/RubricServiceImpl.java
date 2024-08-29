@@ -32,30 +32,4 @@ public class RubricServiceImpl implements CrudService<Rubric> {
     public Rubric findById(int id) {
         return rubricDAO.findById(id);
     }
-
-
-    //    AnnotationConfigApplicationContext context =
-//            new AnnotationConfigApplicationContext(ConfigApp.class);
-//
-//    RubricDAOImpl rubricDAO = context.getBean(RubricDAOImpl.class);
-//
-//    public void insertRubric(String name) {
-//        Rubric rubric1 = Rubric.builder()
-//                .name("Auto")
-//                .build();
-//
-//        rubricDAO.insert(rubric1);
-//    }
-//
-//    public void updateRubricName(int rubricId, String newName) {
-//        Rubric updatedRubric = rubricDAO.findById(rubricId);
-//
-//        updatedRubric.setName(newName);
-//
-//        rubricDAO.update(updatedRubric);
-//    }
-//
-//    public void deleteRubric(int rubricId) {
-//        rubricDAO.deleteById(rubricId);
-//    }
 }

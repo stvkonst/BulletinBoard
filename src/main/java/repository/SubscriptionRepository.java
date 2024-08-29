@@ -17,4 +17,6 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Inte
                            @Param(value = "adPrice") BigDecimal adPrice);
 
     void deleteByAuthorId(int id);
+
+    Subscription findById(int id);
 }

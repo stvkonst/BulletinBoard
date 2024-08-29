@@ -293,7 +293,7 @@ public class AdServiceTest {
         // Update the ad to inactive
         ad.setActive(false);
         adRepository.save(ad);
-        adRepository.flush();
+        //adRepository.flush();
 
         // Delete inactive ads using service
         adService.deleteByIsActiveIsFalse();

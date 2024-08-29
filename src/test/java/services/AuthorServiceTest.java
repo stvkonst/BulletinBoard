@@ -1,21 +1,29 @@
 package services;
 
 import config.ConfigAppTest;
+import dao.CrudDAO;
+import dao.impl.AuthorDAOImpl;
 import domain.*;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import repository.AuthorRepository;
 import service.CrudService;
+import service.impl.AuthorServiceImpl;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 /**
  * Test cases for the AuthorServiceImpl class.
@@ -26,16 +34,16 @@ import static org.junit.Assert.*;
 @Sql(scripts = "classpath:truncate_all_tables.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class AuthorServiceTest {
     /**
+     * Repository for managing authors.
+     */
+    @Autowired
+    private AuthorRepository authorRepository;
+
+    /**
      * Service layer for managing authors.
      */
     @Autowired
     private CrudService<Author> authorService;
-
-    /**
-     * Repository for managing authors.
-     */
-    @Autowired
-    AuthorRepository authorRepository;
 
     /**
      * Helper method to create and save an Author entity.
@@ -112,8 +120,6 @@ public class AuthorServiceTest {
     @Test
     public void shouldDeleteAuthorById() {
         Author author = createAndSaveAuthor();
-        // Save the author using repository
-        authorRepository.save(author);
         // Delete the author using service
         authorService.deleteById(1);
         // Verify the author was deleted
@@ -136,6 +142,4 @@ public class AuthorServiceTest {
         assertEquals("mail@mail.com", savedAuthor.getEmail().getName());
         assertEquals("050-555-66-77", savedAuthor.getPhones().get(0).getName());
     }
-
-
 }
